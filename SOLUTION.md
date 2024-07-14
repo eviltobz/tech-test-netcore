@@ -7,4 +7,7 @@ The instructions for getting started didn't mention anything about setting up th
 ## Task 4
 The task didn't specify what the "friendly" text should be. Given that the code was using ResponsiblePartyId I worked on the assumption that "Responsible Party" would be an understood term, like the whole concept of the ubiquitous language in DDD, but I did also consider putting something a little less formal like "Task Owner" as well. In a real world scenario I might have developed a better feel for the product & audience to know what to use, or if not would check with a product owner or similar if wording was important.
 
+## Task 5
+This spec feels quite vague. Would we just want the hiding to be in the context of the current view, in which case a Javascript-based approach would be optimal to keep it all in the browser. Might we want each list to remeber the state, or have a setting at the user level, if so then we'd want to extend the appropriate data models to persist this. My solution here is somewhere inbetween, so it isn't optimal, but I am at least trying to consider the alternatives were I working on some production code.
+
 

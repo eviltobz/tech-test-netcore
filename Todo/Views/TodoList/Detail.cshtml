@@ -19,8 +19,18 @@
             </a>
         </li>
 
+        <li class="list-group-item">
+            <a asp-action="Detail" asp-controller="TodoList" asp-route-todoListId="@Model.TodoListId" asp-route-hideDoneItems="@(!Model.HideDoneItems)">
+                <strong>
+                    @(Model.HideDoneItems ? "Show" : "Hide") done items
+                </strong>
+            </a>
+        </li>
+
         @foreach (var item in Model.Items.OrderBy(i => i.Importance))
         {
+            @if (Model.HideDoneItems && item.IsDone) continue;
+
             string contextualClass;
             switch (item.Importance)
             {
