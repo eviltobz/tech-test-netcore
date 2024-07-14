@@ -27,3 +27,10 @@ I prefer to avoid using magic values such as defaulting it to zero when possible
 
 * Toggling the order with a bool is quite limiting, but it just about suffices for now.
 
+## Task 8
+This seemed like something that would be best done in Javascript, so that the server doesn't need to make all these remote 3rd party calls. 
+I burned a lot of time doing this, and ended up getting various CORS errors, so I threw that away and started a server-side version instead. 
+This is a rudimentary implementation that will call the service repeatedly for the same user if they are present multiple times. 
+Given more time I'd make the service cache calls to Gravatar so we could do a quick dictionary lookup instead of an HTTP API call for each user,
+use an HttpClientFactory through dependency injection rather than newing up an HttpClient myself, and maybe bring it in to the loading of the data and the view model, rather than mapping it in the view.
+
