@@ -5,6 +5,10 @@
 
 @{
     ViewData["Title"] = $"List: {Model.Title}";
+    // See the notes for task 7 in Solution.md for a bit more information on what's going on here.
+    var orderedItems = Model.OrderByRank 
+        ? Model.Items.OrderBy(i => i.Rank ?? int.MaxValue).ThenBy(i => i.Importance)
+        : Model.Items.OrderBy(i => i.Importance).ThenBy(i => i.Rank ?? int.MaxValue);
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -20,14 +24,20 @@
         </li>
 
         <li class="list-group-item">
-            <a asp-action="Detail" asp-controller="TodoList" asp-route-todoListId="@Model.TodoListId" asp-route-hideDoneItems="@(!Model.HideDoneItems)">
+            <a asp-action="Detail" asp-controller="TodoList" asp-route-todoListId="@Model.TodoListId" asp-route-hideDoneItems="@(!Model.HideDoneItems)" asp-route-orderByRank="@(Model.OrderByRank)">
                 <strong>
                     @(Model.HideDoneItems ? "Show" : "Hide") done items
                 </strong>
             </a>
+            |
+            <a asp-action="Detail" asp-controller="TodoList" asp-route-todoListId="@Model.TodoListId" asp-route-hideDoneItems="@(Model.HideDoneItems)" asp-route-orderByRank="@(!Model.OrderByRank)">
+                <strong>
+                    Order by @(Model.OrderByRank ? "Importance" : "Rank") 
+                </strong>
+            </a>
         </li>
 
-        @foreach (var item in Model.Items.OrderBy(i => i.Importance))
+        @foreach (var item in orderedItems)
         {
             @if (Model.HideDoneItems && item.IsDone) continue;
 
@@ -49,28 +59,35 @@
                 
                 <div class="row">
 
-                <div class="col-md-8">
-                    <a asp-action="Edit" asp-controller="TodoItem" asp-route-todoItemId="@item.TodoItemId">
+                    <div class="col-md-8">
+                        <a asp-action="Edit" asp-controller="TodoItem" asp-route-todoItemId="@item.TodoItemId">
 
-                        @if (item.IsDone)
-                        {
-                            <s>@item.Title</s>
-                        }
-                        else
-                        {
-                            <text>@item.Title</text>
-                        }
-                    </a>
-                </div>
+                            @if (item.IsDone)
+                            {
+                                <s>@item.Title</s>
+                            }
+                            else
+                            {
+                                <text>@item.Title</text>
+                            }
+                        </a>
+                    </div>
 
-                <div class="col-md-4 text-right">
-                    <small>
-                        @item.ResponsibleParty.UserName
+                    <div class="col-md-4 text-right">
+                        <small>
+                            @item.ResponsibleParty.UserName
 
-                        <img src="https://www.gravatar.com/avatar/@Gravatar.GetHash(item.ResponsibleParty.Email)?s=30"/>
+                            <img src="https://www.gravatar.com/avatar/@Gravatar.GetHash(item.ResponsibleParty.Email)?s=30"/>
 
-                    </small>
-                </div>
+                        </small>
+                    </div>
+
+                    <div class="col-md-7">
+                        <small>
+                            Rank: @(item.Rank?.ToString() ?? "N/A")
+                        </small>
+                    </div>
+
                 </div>
 
             </li>

@@ -16,4 +16,14 @@ This change hits the requirement as specified, but I'm thinking that for a produ
 ## General note
 I like to take a TDD approach to writing code, but the changes here have been very UI-centric, or in the call to database. I'm taking a pragmatic approaching and going with the flow of the code that's already here, but I'd be thinking about how I could add some integration tests, or put in some more structure to the unit tests that would help them look at the sort of changes that are being made if this were a production codebase.
 
+## Task 7 
+* There is no detail on what the ranks should be, beyond being able to order by it. We already have the importance field, so I'm presuming that we want something conceptually different, maybe like for sorting the all of the tasks into the order that we plan to do them, so we might have as many different ranks as we have items in a list.  
+If this is how we want rank to be used, we might also want to think about making these values unique, or at least making it obvious in the UI if there are clashes. 
+For this sort of ordering I'd want 1 to be at the top of the list, with it ordered ascending from that. Any item without a rank will come at the bottom, and for consistency I apply secondary ordering of importance when viewing by rank and vice versa.
+As we're updating existing entries, we need their ranks to make sense, so I used a nullable int here to denote the abscense of a rank.
+I prefer to avoid using magic values such as defaulting it to zero when possible, nulls have their own issues, but it feels more axiomatic to use them for missing data, even though I've got the UI set up to not allow 0 as a value when creating or editing tasks.
+
+* We already have unit tests around the populating the TodoItemEditFields from the TodoItem, so as well as adding rank to that, it seemed sensible to add some matching tests for reverse of that process since I was changing that as well. A few fields were missing from the original tests, I'm not taking the extra time to add them in, but I'm noting their absence here, and would consider adding them in a production codebase.
+
+* Toggling the order with a bool is quite limiting, but it just about suffices for now.
 

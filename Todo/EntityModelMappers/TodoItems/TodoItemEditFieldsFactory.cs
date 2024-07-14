@@ -9,13 +9,14 @@ namespace Todo.EntityModelMappers.TodoItems
         {
             var todoList = todoItem.TodoList;
             return new TodoItemEditFields(
-                todoList.TodoListId, 
-                todoList.Title, 
-                todoItem.TodoItemId, 
+                todoList.TodoListId,
+                todoList.Title,
+                todoItem.TodoItemId,
                 todoItem.Title,
-                todoItem.IsDone, 
-                todoItem.ResponsiblePartyId, 
-                todoItem.Importance);
+                todoItem.IsDone,
+                todoItem.ResponsiblePartyId,
+                todoItem.Importance,
+                todoItem.Rank);
         }
 
         public static void Update(TodoItemEditFields src, TodoItem dest)
@@ -24,6 +25,7 @@ namespace Todo.EntityModelMappers.TodoItems
             dest.IsDone = src.IsDone;
             dest.ResponsiblePartyId = src.ResponsiblePartyId;
             dest.Importance = src.Importance;
+            dest.Rank = src.Rank;
         }
     }
 }
