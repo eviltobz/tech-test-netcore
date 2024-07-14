@@ -10,4 +10,10 @@ The task didn't specify what the "friendly" text should be. Given that the code 
 ## Task 5
 This spec feels quite vague. Would we just want the hiding to be in the context of the current view, in which case a Javascript-based approach would be optimal to keep it all in the browser. Might we want each list to remeber the state, or have a setting at the user level, if so then we'd want to extend the appropriate data models to persist this. My solution here is somewhere inbetween, so it isn't optimal, but I am at least trying to consider the alternatives were I working on some production code.
 
+## Task 6
+This change hits the requirement as specified, but I'm thinking that for a production-ready system we'd need to treat lists created by other users differently. Would we be able to see all of the other tasks that aren't assigned to us at all, or might we just get a read-only view of the other tasks, and only be allowed to alter the one that we've been given?
+
+## General note
+I like to take a TDD approach to writing code, but the changes here have been very UI-centric, or in the call to database. I'm taking a pragmatic approaching and going with the flow of the code that's already here, but I'd be thinking about how I could add some integration tests, or put in some more structure to the unit tests that would help them look at the sort of changes that are being made if this were a production codebase.
+
 
